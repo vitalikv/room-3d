@@ -9,6 +9,7 @@ import * as QRK from './qr.js';
 let infLots = [];
 
 export function initSelectObj(params) {
+  return;
   if (!Build.infProg.scene.catalogAccessKeys) return;
 
   let paints = params.paints;
