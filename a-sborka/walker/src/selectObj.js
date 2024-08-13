@@ -9,7 +9,6 @@ import * as QRK from './qr.js';
 let infLots = [];
 
 export function initSelectObj(params) {
-  return;
   if (!Build.infProg.scene.catalogAccessKeys) return;
 
   let paints = params.paints;
@@ -37,9 +36,9 @@ export function initSelectObj(params) {
     strId += '&id[' + i + ']=' + arrId[i];
   }
 
-  let host = 'https://catalog.planoplan.com/api/v2.1/search/?lang=ru&disregard_price=1&disregard_structure=1&disregard_ownership=1';
-
-  let url = host + '&' + Build.infProg.scene.catalogAccessKeys + '&' + strId;
+  //let host = 'https://catalog.planoplan.com/api/v2.1/search/?lang=ru&disregard_price=1&disregard_structure=1&disregard_ownership=1';
+  //let url = host + '&' + Build.infProg.scene.catalogAccessKeys + '&' + strId;
+  let url = './file/catalog.json';
 
   let p = xhrPromise_1({ url: url });
   p.then((data) => {
