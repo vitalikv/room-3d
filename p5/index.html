@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><title>walker</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1,maximum-scale=1"><script defer="defer" src="main.js"></script></head><body><div id="root" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"></div></body><script>document.addEventListener("DOMContentLoaded", initThreeJS);
+
+	function initThreeJS()
+	{
+		if (window.PoPIA) {
+			let paramsString = document.location.search;
+			let searchParams = new URLSearchParams(paramsString);
+			let flat = searchParams.get('flat');
+
+			if (flat) {
+				window.PoPIA.init({ el: '#root', url: flat, showUi: true });
+			} else {
+
+
+				const Pia = window.PoPIA;
+
+				Pia.init({
+					el: '#root',
+					url: 'flat.json?2444',
+					panorama: null,
+					showUi: true,
+					lang: 'en',
+					wPoint: true,
+					camCenter: false
+				});
+			}
+		}
+	}</script></html>

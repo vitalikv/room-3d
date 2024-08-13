@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano version="1.19" title="Virtual tour" onstart="startupfloor();">
+    <i18n>
+        <key name="key_roomtypes_173_bathroom">
+            <translation name="ru" value="Ванная"/>
+            <translation name="en" value="Bathroom"/>
+            <translation name="de" value="Bad"/>
+            <translation name="fi" value="Kylpyhuone"/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Salle de bain"/>
+            <translation name="cn" value="浴室"/>
+            <translation name="jp" value="バスルーム"/>
+            <translation name="pt" value="Banheiro"/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Banyo"/>
+            <translation name="br" value="Banheiro"/>
+        </key>
+        <key name="key_roomtypes_73_balcon">
+            <translation name="ru" value="Балкон"/>
+            <translation name="en" value="Balcony"/>
+            <translation name="de" value="Balkon"/>
+            <translation name="fi" value="Parveke"/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Balcon"/>
+            <translation name="cn" value="阳台"/>
+            <translation name="jp" value="バルコニー"/>
+            <translation name="pt" value="Sacada"/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Balkon"/>
+            <translation name="br" value="Sacada"/>
+        </key>
+        <key name="key_roomtypes_bathroom_combined">
+            <translation name="ru" value="С/у совмещенный"/>
+            <translation name="en" value="Bathroom combined"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Salle de bain combinée"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Kombine banyo"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_bedroom">
+            <translation name="ru" value="Спальня"/>
+            <translation name="en" value="Bedroom"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Chambre"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Oda "/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_child's room">
+            <translation name="ru" value="Детская"/>
+            <translation name="en" value="Children's room"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Chambre pour les enfants"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Çocukların odası"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_corridor">
+            <translation name="ru" value="Коридор"/>
+            <translation name="en" value="Corridor"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Couloir"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Koridor"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_custom">
+            <translation name="ru" value="Пользовательский"/>
+            <translation name="en" value="Custom"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value=""/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value=""/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_dining room">
+            <translation name="ru" value="Столовая"/>
+            <translation name="en" value="Dining room"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Salle à manger"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Yemek odası"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_dressing room">
+            <translation name="ru" value="Гардеробная"/>
+            <translation name="en" value="Dressing room"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Dressing"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Giyinme odası"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_garage">
+            <translation name="ru" value="Гараж"/>
+            <translation name="en" value="Garage"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Garage"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Garaj"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_hall">
+            <translation name="ru" value="Прихожая"/>
+            <translation name="en" value="Hall"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Entrée"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Giriş"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_home office">
+            <translation name="ru" value="Кабинет"/>
+            <translation name="en" value="Home office"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Bureau à domicile"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Ev ofisi"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_kitchen">
+            <translation name="ru" value="Кухня"/>
+            <translation name="en" value="Kitchen"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Cuisine"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Mutfak"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_lawn">
+            <translation name="ru" value="Участок/лужайка"/>
+            <translation name="en" value="Lawn"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Pelouse"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Çim"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_living room">
+            <translation name="ru" value="Гостиная"/>
+            <translation name="en" value="Living room"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Salle de séjour"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Oturma odası"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_loggia">
+            <translation name="ru" value="Лоджия"/>
+            <translation name="en" value="Loggia"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Loggia"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Sundurma"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_room 1">
+            <translation name="ru" value="Комната 1"/>
+            <translation name="en" value="Room 1"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Chambre 1"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Oda 1"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_room 2">
+            <translation name="ru" value="Комната 2"/>
+            <translation name="en" value="Room 2"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Chambre 2"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Oda 2"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_room 3">
+            <translation name="ru" value="Комната 3"/>
+            <translation name="en" value="Room 3"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Chambre 3"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Oda 3"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_room 4">
+            <translation name="ru" value="Комната 4"/>
+            <translation name="en" value="Room 4"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Chambre 4"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Oda 4"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_sauna">
+            <translation name="ru" value="Сауна"/>
+            <translation name="en" value="Sauna"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Sauna"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Sauna"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_storage room">
+            <translation name="ru" value="Кладовая"/>
+            <translation name="en" value="Storage room"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Chambre de stockage"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Depolama odası"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_technical room">
+            <translation name="ru" value="Техническое помещение"/>
+            <translation name="en" value="Technical room"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Chambre technique"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Teknik oda"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_terrace">
+            <translation name="ru" value="Терраса"/>
+            <translation name="en" value="Terrace"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Terasse"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Teras"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_toilet/WC">
+            <translation name="ru" value="Туалет"/>
+            <translation name="en" value="Toilet/WC"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="Toilettes"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="Tuvalet / WC"/>
+            <translation name="br" value=""/>
+        </key>
+        <key name="key_roomtypes_toilet/WC 2">
+            <translation name="ru" value="С/У"/>
+            <translation name="en" value="WC"/>
+            <translation name="de" value=""/>
+            <translation name="fi" value=""/>
+            <translation name="es" value=""/>
+            <translation name="fr" value="WC"/>
+            <translation name="cn" value=""/>
+            <translation name="jp" value=""/>
+            <translation name="pt" value=""/>
+            <translation name="th" value=""/>
+            <translation name="tr" value="WC"/>
+            <translation name="br" value=""/>
+        </key>
+    </i18n>
+    <settings/>
+    <layer name="mapcontainer" keep="false" type="container" bgcolor="0x000000" bgalpha="0.5" align="rightbottom" x="16" y="16" width="68" height="53">
+        <layer name="map" url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/map.png?1559468366" align="rightbottom" x="4" y="4" width="60" height="45" handcursor="false" scalechildren="true" maskchildren="true" onclick="openmap();">
+            <layer name="radarmask" type="container" align="lefttop" width="100%" height="100%" maskchildren="true">
+                <layer name="radar" visible="false" url="%SWFPATH%/plugins/radar.swf" alturl="%SWFPATH%/plugins/radar.js" align="lefttop" edge="center" zorder="1" scale="1" fillcolor="0xFFFFFF" fillalpha="0.4" linecolor="0xFF0000" linewidth="0.5" linealpha="0.5" headingoffset="0"/>
+                <layer name="spot_on_plan_52" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="59" y="73" zorder="2" onclick="spotonplanclick(scene_52);"/>
+                <layer name="spot_on_plan_69" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="242" y="102" zorder="2" onclick="spotonplanclick(scene_69);"/>
+                <layer name="spot_on_plan_68" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="275" y="104" zorder="2" onclick="spotonplanclick(scene_68);"/>
+                <layer name="spot_on_plan_67" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="140" y="220" zorder="2" onclick="spotonplanclick(scene_67);"/>
+                <layer name="spot_on_plan_66" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="134" y="189" zorder="2" onclick="spotonplanclick(scene_66);"/>
+                <layer name="spot_on_plan_65" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="78" y="215" zorder="2" onclick="spotonplanclick(scene_65);"/>
+                <layer name="spot_on_plan_64" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="60" y="192" zorder="2" onclick="spotonplanclick(scene_64);"/>
+                <layer name="spot_on_plan_63" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="99" y="185" zorder="2" onclick="spotonplanclick(scene_63);"/>
+                <layer name="spot_on_plan_62" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="100" y="153" zorder="2" onclick="spotonplanclick(scene_62);"/>
+                <layer name="spot_on_plan_61" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="65" y="129" zorder="2" onclick="spotonplanclick(scene_61);"/>
+                <layer name="spot_on_plan_60" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="238" y="28" zorder="2" onclick="spotonplanclick(scene_60);"/>
+                <layer name="spot_on_plan_59" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="279" y="34" zorder="2" onclick="spotonplanclick(scene_59);"/>
+                <layer name="spot_on_plan_58" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="246" y="67" zorder="2" onclick="spotonplanclick(scene_58);"/>
+                <layer name="spot_on_plan_57" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="214" y="69" zorder="2" onclick="spotonplanclick(scene_57);"/>
+                <layer name="spot_on_plan_56" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="175" y="32" zorder="2" onclick="spotonplanclick(scene_56);"/>
+                <layer name="spot_on_plan_55" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="150" y="32" zorder="2" onclick="spotonplanclick(scene_55);"/>
+                <layer name="spot_on_plan_54" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="178" y="65" zorder="2" onclick="spotonplanclick(scene_54);"/>
+                <layer name="spot_on_plan_53" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="87" y="22" zorder="2" onclick="spotonplanclick(scene_53);"/>
+                <layer name="spot_on_plan_50" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="96" y="77" zorder="2" onclick="spotonplanclick(scene_50);"/>
+                <layer name="spot_on_plan_49" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="276" y="65" zorder="2" onclick="spotonplanclick(scene_49);"/>
+                <layer name="spot_on_plan_48" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="91" y="41" zorder="2" onclick="spotonplanclick(scene_48);"/>
+                <layer name="spot_on_plan_46" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="100" y="118" zorder="2" onclick="spotonplanclick(scene_46);"/>
+                <layer name="spot_on_plan_45" url="/etc/krpano/tour_skin/mappoint.png" align="lefttop" edge="center" x="145" y="65" zorder="2" onclick="spotonplanclick(scene_45);"/>
+                <layer name="activespot" url="/etc/krpano/tour_skin/mappointactive.png" align="lefttop" edge="center" zorder="3" visible="false"/>
+            </layer>
+        </layer>
+    </layer>
+    <scene name="scene_52" title="Гостиная 52" onstart="activatespot(spot_on_plan_52, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="89.397" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_52/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_52_50_0" style="skin_hotspotstyle" ath="94.36254" atv="0" linkedscene="scene_50"/>
+    </scene>
+    <scene name="scene_69" title="Гостиная 69" onstart="activatespot(spot_on_plan_69, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_69/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_69_68_0" style="skin_hotspotstyle" ath="97.18051" atv="21.06883" linkedscene="scene_68"/>
+    </scene>
+    <scene name="scene_68" title="Гостиная 68" onstart="activatespot(spot_on_plan_68, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_68/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_68_49_0" style="skin_hotspotstyle" ath="0.5028" atv="-17.82064" linkedscene="scene_49"/>
+        <hotspot name="spot_68_49_1" style="skin_hotspotstyle" ath="0.5028" atv="-17.82064" linkedscene="scene_49"/>
+        <hotspot name="spot_68_69_2" style="skin_hotspotstyle" ath="-89.67738" atv="-21.06883" linkedscene="scene_69"/>
+    </scene>
+    <scene name="scene_67" title="Гостиная 67" onstart="activatespot(spot_on_plan_67, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_67/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_67_66_0" style="skin_hotspotstyle" ath="-10.0974" atv="-21.83658" linkedscene="scene_66"/>
+    </scene>
+    <scene name="scene_66" title="Гостиная 66" onstart="activatespot(spot_on_plan_66, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_66/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_66_63_0" style="skin_hotspotstyle" ath="-83.47045" atv="0" linkedscene="scene_63"/>
+        <hotspot name="spot_66_67_1" style="skin_hotspotstyle" ath="169.9025" atv="21.83658" linkedscene="scene_67"/>
+    </scene>
+    <scene name="scene_65" title="Гостиная 65" onstart="activatespot(spot_on_plan_65, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_65/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_65_63_0" style="skin_hotspotstyle" ath="35.34498" atv="0.02797646" linkedscene="scene_63"/>
+        <hotspot name="spot_65_64_1" style="skin_hotspotstyle" ath="-38.99102" atv="0.02797646" linkedscene="scene_64"/>
+    </scene>
+    <scene name="scene_64" title="Гостиная 64" onstart="activatespot(spot_on_plan_64, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_64/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_64_63_0" style="skin_hotspotstyle" ath="78.9882" atv="0.01978234" linkedscene="scene_63"/>
+        <hotspot name="spot_64_65_1" style="skin_hotspotstyle" ath="141.009" atv="0.02797646" linkedscene="scene_65"/>
+    </scene>
+    <scene name="scene_63" title="Гостиная 63" onstart="activatespot(spot_on_plan_63, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_63/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_63_62_0" style="skin_hotspotstyle" ath="1.145688" atv="0" linkedscene="scene_62"/>
+        <hotspot name="spot_63_64_1" style="skin_hotspotstyle" ath="-101.0118" atv="0.01978234" linkedscene="scene_64"/>
+        <hotspot name="spot_63_66_2" style="skin_hotspotstyle" ath="96.5295" atv="0" linkedscene="scene_66"/>
+        <hotspot name="spot_63_65_3" style="skin_hotspotstyle" ath="-144.6549" atv="0.02797646" linkedscene="scene_65"/>
+    </scene>
+    <scene name="scene_62" title="Гостиная 62" onstart="activatespot(spot_on_plan_62, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_62/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_62_46_0" style="skin_hotspotstyle" ath="-0.3499859" atv="0.01978234" linkedscene="scene_46"/>
+        <hotspot name="spot_62_63_1" style="skin_hotspotstyle" ath="-178.8543" atv="0" linkedscene="scene_63"/>
+        <hotspot name="spot_62_61_2" style="skin_hotspotstyle" ath="-55.68121" atv="0" linkedscene="scene_61"/>
+    </scene>
+    <scene name="scene_61" title="Гостиная 61" onstart="activatespot(spot_on_plan_61, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_61/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_61_46_0" style="skin_hotspotstyle" ath="72.00302" atv="0" linkedscene="scene_46"/>
+        <hotspot name="spot_61_62_1" style="skin_hotspotstyle" ath="124.3188" atv="0" linkedscene="scene_62"/>
+    </scene>
+    <scene name="scene_60" title="Гостиная 60" onstart="activatespot(spot_on_plan_60, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="86.955" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_60/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_60_58_0" style="skin_hotspotstyle" ath="168.9213" atv="-19.09545" linkedscene="scene_58"/>
+        <hotspot name="spot_60_49_1" style="skin_hotspotstyle" ath="134.1733" atv="-14.62304" linkedscene="scene_49"/>
+        <hotspot name="spot_60_59_2" style="skin_hotspotstyle" ath="97.99801" atv="-18.42702" linkedscene="scene_59"/>
+    </scene>
+    <scene name="scene_59" title="Гостиная 59" onstart="activatespot(spot_on_plan_59, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="269.573" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_59/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_59_49_0" style="skin_hotspotstyle" ath="-174.3423" atv="0" linkedscene="scene_49"/>
+        <hotspot name="spot_59_58_1" style="skin_hotspotstyle" ath="-135" atv="0.01978234" linkedscene="scene_58"/>
+        <hotspot name="spot_59_60_2" style="skin_hotspotstyle" ath="-82.00193" atv="18.42702" linkedscene="scene_60"/>
+    </scene>
+    <scene name="scene_58" title="Гостиная 58" onstart="activatespot(spot_on_plan_58, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_58/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_58_57_0" style="skin_hotspotstyle" ath="-91.90916" atv="0.01978234" linkedscene="scene_57"/>
+        <hotspot name="spot_58_49_1" style="skin_hotspotstyle" ath="85.72585" atv="0" linkedscene="scene_49"/>
+        <hotspot name="spot_58_59_2" style="skin_hotspotstyle" ath="44.99997" atv="0.01978234" linkedscene="scene_59"/>
+        <hotspot name="spot_58_60_3" style="skin_hotspotstyle" ath="-11.07884" atv="19.09545" linkedscene="scene_60"/>
+    </scene>
+    <scene name="scene_57" title="Гостиная 57" onstart="activatespot(spot_on_plan_57, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_57/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_57_54_0" style="skin_hotspotstyle" ath="-83.69641" atv="0.01978234" linkedscene="scene_54"/>
+        <hotspot name="spot_57_58_1" style="skin_hotspotstyle" ath="88.09093" atv="0.01978234" linkedscene="scene_58"/>
+        <hotspot name="spot_57_57_2" style="skin_hotspotstyle" ath="90" atv="90" linkedscene="scene_57"/>
+        <hotspot name="spot_57_56_3" style="skin_hotspotstyle" ath="-47.09728" atv="0" linkedscene="scene_56"/>
+    </scene>
+    <scene name="scene_56" title="Гостиная 56" onstart="activatespot(spot_on_plan_56, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_56/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_56_45_0" style="skin_hotspotstyle" ath="-136.8463" atv="0" linkedscene="scene_45"/>
+        <hotspot name="spot_56_55_1" style="skin_hotspotstyle" ath="-89.02895" atv="0.02797646" linkedscene="scene_55"/>
+        <hotspot name="spot_56_54_2" style="skin_hotspotstyle" ath="175.486" atv="0" linkedscene="scene_54"/>
+        <hotspot name="spot_56_57_3" style="skin_hotspotstyle" ath="132.9026" atv="0" linkedscene="scene_57"/>
+    </scene>
+    <scene name="scene_55" title="Гостиная 55" onstart="activatespot(spot_on_plan_55, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_55/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_55_45_0" style="skin_hotspotstyle" ath="-172.0781" atv="0" linkedscene="scene_45"/>
+        <hotspot name="spot_55_56_1" style="skin_hotspotstyle" ath="90.97093" atv="0.02797646" linkedscene="scene_56"/>
+        <hotspot name="spot_55_54_2" style="skin_hotspotstyle" ath="139.8304" atv="0.01978234" linkedscene="scene_54"/>
+    </scene>
+    <scene name="scene_54" title="Гостиная 54" onstart="activatespot(spot_on_plan_54, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_54/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_54_45_0" style="skin_hotspotstyle" ath="-88.5171" atv="0" linkedscene="scene_45"/>
+        <hotspot name="spot_54_56_1" style="skin_hotspotstyle" ath="-3.759579" atv="0" linkedscene="scene_56"/>
+        <hotspot name="spot_54_57_2" style="skin_hotspotstyle" ath="96.23127" atv="0.01978234" linkedscene="scene_57"/>
+        <hotspot name="spot_54_55_3" style="skin_hotspotstyle" ath="-39.72966" atv="0.01978234" linkedscene="scene_55"/>
+    </scene>
+    <scene name="scene_53" title="Гостиная 53" onstart="activatespot(spot_on_plan_53, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="0.000" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_53/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_53_48_0" style="skin_hotspotstyle" ath="168.4881" atv="0" linkedscene="scene_48"/>
+    </scene>
+    <scene name="scene_50" title="AutoPanoCam_27807" onstart="activatespot(spot_on_plan_50, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="77.556" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_50/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_50_48_0" style="skin_hotspotstyle" ath="-13.43341" atv="0" linkedscene="scene_48"/>
+        <hotspot name="spot_50_46_1" style="skin_hotspotstyle" ath="172.4432" atv="0" linkedscene="scene_46"/>
+        <hotspot name="spot_50_45_2" style="skin_hotspotstyle" ath="73.22601" atv="0.03426402" linkedscene="scene_45"/>
+        <hotspot name="spot_50_52_3" style="skin_hotspotstyle" ath="-82.57246" atv="0" linkedscene="scene_52"/>
+    </scene>
+    <scene name="scene_49" title="AutoPanoCam_28302" onstart="activatespot(spot_on_plan_49, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="305.171" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_49/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_49_58_0" style="skin_hotspotstyle" ath="-94.27426" atv="0" linkedscene="scene_58"/>
+        <hotspot name="spot_49_59_1" style="skin_hotspotstyle" ath="5.657695" atv="0" linkedscene="scene_59"/>
+        <hotspot name="spot_49_60_2" style="skin_hotspotstyle" ath="-45.82666" atv="14.62304" linkedscene="scene_60"/>
+        <hotspot name="spot_49_68_3" style="skin_hotspotstyle" ath="-177.1805" atv="17.82064" linkedscene="scene_68"/>
+        <hotspot name="spot_49_68_4" style="skin_hotspotstyle" ath="-177.1805" atv="17.82064" linkedscene="scene_68"/>
+    </scene>
+    <scene name="scene_48" title="AutoPanoCam_28320" onstart="activatespot(spot_on_plan_48, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="350.197" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_48/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_48_50_0" style="skin_hotspotstyle" ath="179.7842" atv="0" linkedscene="scene_50"/>
+        <hotspot name="spot_48_53_1" style="skin_hotspotstyle" ath="-11.51179" atv="0" linkedscene="scene_53"/>
+    </scene>
+    <scene name="scene_46" title="AutoPanoCam_27800" onstart="activatespot(spot_on_plan_46, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="222.145" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_46/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_46_50_0" style="skin_hotspotstyle" ath="1.529055" atv="0" linkedscene="scene_50"/>
+        <hotspot name="spot_46_61_1" style="skin_hotspotstyle" ath="-107.8484" atv="0" linkedscene="scene_61"/>
+        <hotspot name="spot_46_62_2" style="skin_hotspotstyle" ath="179.1781" atv="0.01978234" linkedscene="scene_62"/>
+    </scene>
+    <scene name="scene_45" title="AutoPanoCam_28326" onstart="activatespot(spot_on_plan_45, 0);" thumburl="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366" lat="" lng="" heading="">
+        <view hlookat="40.761" vlookat="0.000" fov="90" fovmin="60" fovmax="110" limitview="auto" fisheye="0" fisheyefovlink="3"/>
+        <preview url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/38f4875849a23893ad2af4d187c890d7_preview.jpg?1559468366"/>
+        <image>
+            <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+            <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+            <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+            <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+            <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+            <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            <mobile>
+                <left url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/1df961bcae5017f2131f791471106180_left.jpg?1559468366"/>
+                <front url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/ba6ba546b429dba02c094cea23d4eb75_front.jpg?1559468366"/>
+                <right url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/65a5d9acbc95036f902a06b201b5b719_right.jpg?1559468366"/>
+                <back url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/bab6d6a38128dfa7c680937f6991ac5e_back.jpg?1559468366"/>
+                <up url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/815f9a7bb29ae7881cddeb7b0cd58fbf_up.jpg?1559468366"/>
+                <down url="https://files.planoplan.com/upload/userdata/1/31/projects/1480030/widget/tour/floor_4/cam_45/58c8a59f4ca261bc13896eda1a5c1054_down.jpg?1559468366"/>
+            </mobile>
+        </image>
+        <hotspot name="spot_45_50_0" style="skin_hotspotstyle" ath="-100.4163" atv="0.03426402" linkedscene="scene_50"/>
+        <hotspot name="spot_45_55_1" style="skin_hotspotstyle" ath="9.868944" atv="0" linkedscene="scene_55"/>
+        <hotspot name="spot_45_54_2" style="skin_hotspotstyle" ath="87.5509" atv="0" linkedscene="scene_54"/>
+        <hotspot name="spot_45_56_3" style="skin_hotspotstyle" ath="42.59655" atv="0" linkedscene="scene_56"/>
+    </scene>
+</krpano>

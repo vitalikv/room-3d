@@ -1,0 +1,6 @@
+# Перенаправление на gzip файлы
+AddEncoding gzip .gz
+ <FilesMatch "\.obj.gz$">
+  ForceType text/javascript 
+  Header set Content-Encoding: gzip
+</FilesMatch>
