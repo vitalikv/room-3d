@@ -196,7 +196,6 @@ export function rayHitObj(params) {
     Build.outlinePass.selectedObjects = [];
     Build.infProg.scene.newPivot.hide();
   } else {
-    console.log(obj);
     obj.objOutline(true);
     Build.infProg.scene.newPivot.setPivot({ obj: obj });
   }

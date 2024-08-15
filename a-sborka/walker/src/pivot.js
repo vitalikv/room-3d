@@ -116,6 +116,7 @@ class Pivot extends THREE.Group {
     this.rotation.copy(obj.rotation);
     this.visible = true;
     this.setScale();
+    this.visible = false;
   }
 
   mouseDown({ ray }) {

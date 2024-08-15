@@ -261,9 +261,9 @@ function crHtmlWrapper({ obj: obj }) {
     obj = obj.userData.joinObj;
 
     let inf = {};
-    inf.name = 'name';
-    inf.description = 'description';
-    inf.price = 'price ₽';
+    inf.name = 'название';
+    inf.description = 'описание';
+    inf.price = 'цена';
 
     if (obj.userData.pop && obj.userData.pop.info) {
       inf.name = obj.userData.pop.info.name;
@@ -280,9 +280,9 @@ function crHtmlWrapper({ obj: obj }) {
 
     let strPrice = jsonInf.price != '' ? `<div style='margin-top: 20px; color: #2F2F2F;'>${jsonInf.price}</div>` : '';
 
-    let html = `<div style='position: fixed; background: #F5F7F6; border: 1px solid #E5EAF1; box-sizing: border-box; border-radius: 20px;'>
+    let html = `<div style='position: fixed; background: #F5F7F6; border: 1px solid #E5EAF1; box-sizing: border-box; border-radius: 10px;'>
       <div style='display: flex; flex-direction: column; max-width: 200px; height: auto; margin: 30px 40px; font-size: 14px; line-height: 17px;'>
-        <div style='color: #0057FF;'>${jsonInf.name}</div>
+        <div style='color: #D66F02; margin-top: 5px;'>${jsonInf.name}</div>
         <div style='color: #2F2F2F;'>${jsonInf.description}</div>
         ${strPrice}
       </div>
