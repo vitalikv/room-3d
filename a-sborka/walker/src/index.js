@@ -20,7 +20,17 @@ if (!window.PoPIA) {
   if (flat) {
     window.PoPIA.init({ url: flat });
   } else {
-    window.PoPIA.init({ url: './file/flat.json?164845' });
+    //window.PoPIA.init({ url: './file/flat.json?164845' });
+
+    window.PoPIA.init({
+      el: '#root',
+      url: './file/flat.json?164845',
+      showUi: true,
+      //lang: 'en',
+      wPoint: false,
+      camCenter: true,
+      infoPoint: true,
+    });
   }
 }
 

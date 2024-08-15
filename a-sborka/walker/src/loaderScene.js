@@ -2,35 +2,63 @@ import * as THREE from '../node_modules/three/build/three.module.js';
 import * as Build from './walker.js';
 import * as PANOR from './panorama.js';
 import * as SMAT from './setMaterials.js';
+import * as REFP from './refProbe.js';
 import * as LOADF from './loaderFurnitures.js';
 import * as HIDDO from './HiddenObject.js';
 import * as PCAM from './pathCamera.js';
 import * as SST from './stats_1.js';
 import * as WKP from './walkPoint.js';
 import * as SLO from './selectObj.js';
+import * as API from './api/apiPia.js';
+import * as LGS from './lightShadow.js';
+import * as IFP from './infoPoint.js';
+import * as CRM from './cursorMove.js';
+import * as PIV from './pivot.js';
+import * as OAS from './obj3D.js';
+
+import { LineSegmentsGeometry } from '../node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js';
+import { LineSegments2 } from '../node_modules/three/examples/jsm/lines/LineSegments2.js';
+import { LineMaterial } from '../node_modules/three/examples/jsm/lines/LineMaterial.js';
 
 export function loadScene_1(params = {}) {
-  let paramsString = document.location.search; // &debugUI=1&refProbe=1&matFloor=1&composerR=1&upMat=1&stImg=1&iPoint=1&hideO=1&vProbe=1
+  // &debugUI=1&refProbe=1&matFloor=1&composerR=1&upMat=1&stImg=1&hideO=1&vProbe=1&camCenter=true&wPoint=false&infoPoint=true&dirLight=true&pointLight=true
+  let paramsString = document.location.search;
   let searchParams = new URLSearchParams(paramsString);
 
   let flat = searchParams.get('flat');
   let debugUI = searchParams.get('debugUI');
   let matFloor = searchParams.get('matFloor');
   let refProbe = searchParams.get('refProbe');
-  let iPoint = searchParams.get('iPoint');
+  let wPoint = searchParams.get('wPoint');
   let upMat = searchParams.get('upMat');
   let stImg = searchParams.get('stImg');
   let hideO = searchParams.get('hideO');
   let lightMap = searchParams.get('lightMap');
   let vProbe = searchParams.get('vProbe');
-  iPoint = true;
+  let camCenter = searchParams.get('camCenter');
+  let infoPoint = searchParams.get('infoPoint');
+  let dirLight = searchParams.get('dirLight');
+  let pointLight = searchParams.get('pointLight');
+  let dynamicL = searchParams.get('dynamicL');
+
+  if (wPoint !== null) wPoint = wPoint === 'true' ? true : false;
+  if (camCenter !== null) camCenter = camCenter === 'true' ? true : false;
+  if (infoPoint !== null) infoPoint = infoPoint === 'true' ? true : false;
+  if (dirLight !== null) dirLight = dirLight === 'true' ? true : false;
+  if (pointLight !== null) pointLight = pointLight === 'true' ? true : false;
+  if (dynamicL !== null) dynamicL = dynamicL === 'true' ? true : false;
+
   let url = null;
 
-  if (params.url) {
-    url = params.url;
-  } else if (flat) {
-    //url = flat+'?v='+new Date().getTime();
+  if (flat) {
     url = flat;
+  } else if (params.url) {
+    url = params.url;
+    wPoint = params.wPoint;
+    camCenter = params.camCenter;
+    infoPoint = params.infoPoint;
+    dirLight = params.dirLight;
+    //dynamicL = params.dynamicL;
   }
 
   if (url) {
@@ -45,58 +73,37 @@ export function loadScene_1(params = {}) {
     } else {
       Build.infProg.doc.vers = new Date().getTime();
     }
+  }
 
-    console.log('vers', Build.infProg.doc.vers);
+  if (params.panorama) {
+    Build.infProg.scene.panorama.json = params.panorama;
   }
 
   if (debugUI) SST.initPanel();
 
   if (matFloor) Build.infProg.mode.matFloor = false;
   if (refProbe) Build.infProg.mode.refProbe = false;
-  if (iPoint) Build.infProg.mode.iPoint = false;
+  if (wPoint !== null && wPoint !== undefined) Build.infProg.mode.wPoint = wPoint;
   if (upMat) Build.infProg.mode.upMat = false;
   if (stImg) Build.infProg.mode.stImg = false;
   if (hideO) Build.infProg.mode.hideO = false;
-  if (lightMap) {
-    Build.infProg.mode.lightMap = lightMap;
-  }
-  if (vProbe) {
-    Build.infProg.mode.vProbe = true;
-  }
+  if (lightMap) Build.infProg.mode.lightMap = lightMap;
+  if (vProbe) Build.infProg.mode.vProbe = true;
+  if (camCenter !== null && camCenter !== undefined) Build.infProg.mode.camCenter = camCenter;
+  if (infoPoint !== null && infoPoint !== undefined) Build.infProg.mode.infoPoint = infoPoint;
+  if (dirLight !== null && dirLight !== undefined) Build.infProg.mode.dirLight = dirLight;
+  if (pointLight !== null && pointLight !== undefined) Build.infProg.mode.pointLight = pointLight;
+  if (dynamicL !== null && dynamicL !== undefined) Build.infProg.mode.dynamicL = dynamicL;
 
-  if (url && 1 == 1) {
-    let p = xhrPromise_1({ url: url });
-    p.then((data) => {
-      loadScene_2({ json: data });
-    }).catch((err) => {
-      console.log('err', err);
-    });
-  } else if (1 == 2) {
-    SST.initPanel();
-    Build.infProg.doc.flatPath = 't/';
-    Build.infProg.mode.lightMap = '_x4';
-    let p = xhrPromise_1({ url: 't/flat.json?v=11' });
-    p.then((data) => {
-      loadScene_2({ json: data });
-    }).catch((err) => {
-      console.log('err', err);
-    });
-  } else {
-    let elemProgressBar = Build.infProg.elem.progressBar;
+  console.log('vers', Build.infProg.doc.vers, 3);
+  //console.log(Build.infProg.mode);
 
-    Build.infProg.stats.time.update = false;
-    let elem_wrap = elemProgressBar.closest('[nameId="wrap_progressBar"]');
-    elem_wrap.style.display = 'none';
-
-    let divLoad = document.querySelector('[nameId="loader"]');
-    divLoad.style.display = 'none';
-
-    let grid = new THREE.GridHelper(10, 10);
-    Build.scene.add(grid);
-
-    //PCAM.initPathCam();
-    WKP.initWalkPoint({ arr: grid });
-  }
+  let p = xhrPromise_1({ url: url });
+  p.then((data) => {
+    loadScene_2({ json: data });
+  }).catch((err) => {
+    console.log('err', err);
+  });
 }
 
 async function loadScene_2(params) {
@@ -163,87 +170,7 @@ async function loadScene_2(params) {
   });
 }
 
-function finishLoadScene_1(params) {
-  let arrImg = [];
-  let count = 0;
-
-  Build.scene.traverse(function (child) {
-    if (child.material && child.material.userData.tag1 && child.material.userData.tag1 == 'obj') {
-      if (child.material.map && child.material.map.image) {
-        arrImg[arrImg.length] = child.material.map.image;
-      }
-
-      if (child.material.lightMap && child.material.lightMap.image) {
-        arrImg[arrImg.length] = child.material.lightMap.image;
-      }
-    }
-  });
-
-  arrImg = [...new Set(arrImg)];
-
-  for (let i = 0; i < arrImg.length; i++) {
-    arrImg[i].onload = () => {
-      nextStep();
-    };
-  }
-
-  function nextStep() {
-    count++;
-
-    if (arrImg.length == count + 1) {
-      Build.render();
-      finishLoadScene_2(params);
-    }
-  }
-}
-
-function finishLoadScene_2(params) {
-  let json = params.json;
-
-  if (Build.infProg.mode.refProbe) {
-    SMAT.crMatReflectionProbe();
-  }
-
-  if (json.paints) {
-    SLO.initSelectObj({ paints: json.paints });
-  }
-
-  if (Build.infProg.mode.iPoint) {
-    WKP.initWalkPoint({ arr: Build.infProg.scene.floor });
-    WKP.visibleInfPoint({ visPoint: true, visCursor: false, visButt: false });
-  }
-
-  if (Build.infProg.mode.hideO) {
-    if (json.hideObjects) {
-      HIDDO.initHiddenObject({ arr: json.hideObjects });
-      HIDDO.wallAfterRender_3();
-
-      HIDDO.initHiddenObjCeil();
-      HIDDO.showHideObjCeil();
-    }
-  }
-
-  if (1 == 1) {
-    let elemProgressBar = Build.infProg.elem.progressBar;
-
-    Build.infProg.stats.time.update = false;
-    let elem_wrap = elemProgressBar.closest('[nameId="wrap_progressBar"]');
-    elem_wrap.style.display = 'none';
-
-    let divLoad = document.querySelector('[nameId="loader"]');
-    divLoad.style.display = 'none';
-  }
-
-  //PCAM.initPathCam();
-
-  PANOR.initPanorama({});
-
-  Build.render();
-}
-
 function xhrPromise_1(params) {
-  //let elemProgressBar = Build.infProg.elem.progressBar;
-
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -257,12 +184,10 @@ function xhrPromise_1(params) {
         reject(xhr.response);
       }
 
-      let elemProgressBar = Build.infProg.elem.progressBar;
-
       Build.infProg.doc.loadFile.progress += 1;
       let val = (Build.infProg.doc.loadFile.progress / Build.infProg.doc.loadFile.total) * 100;
-
-      elemProgressBar.style.width = val + '%';
+      if (val == 'Infinity') val = 0;
+      API.apiPIA.moveProgressBar(val);
     };
 
     xhr.onprogress = (event) => {
@@ -324,47 +249,22 @@ function loadScene_3(params) {
   if (params.type) {
     if (params.type == 'construction') {
       Build.infProg.scene.construction = obj;
+      crEdge({ obj });
       constructionSetting({ obj: obj });
     } else if (params.type == 'windows') {
       Build.infProg.scene.windows = obj;
+      crEdge({ obj });
     } else if (params.type == 'doors') {
       Build.infProg.scene.doors = obj;
+      crEdge({ obj });
     } else if (params.type == 'furnitures') {
-      Build.infProg.scene.furnitures[Build.infProg.scene.furnitures.length] = obj;
-      obj.userData.file = params.file;
-      LOADF.deleteBoxFurnitures({ obj: obj });
+      obj = LOADF.attachObjFurnitures({ obj: obj, file: params.file });
     }
   }
 
-  obj.position.copy(Build.infProg.scene.offset);
+  obj.position.add(Build.infProg.scene.offset);
 
-  obj.traverse(function (child) {
-    if (child.material) {
-      let userData = {};
-      userData.opacity = child.material.opacity;
-      child.material.userData = userData;
-      child.material.userData.tag1 = 'obj';
-
-      if (Build.infProg.mode.stImg) {
-      } else {
-        if (child.material.map) {
-          child.material.map.image = Build.infProg.img.lightMap_1.image;
-          child.material.map.needsUpdate = true;
-        }
-
-        if (child.material.lightMap) {
-          child.material.lightMap.image = Build.infProg.img.lightMap_1.image;
-          child.material.lightMap.needsUpdate = true;
-        }
-      }
-
-      if (Build.infProg.mode.upMat) {
-        if (json.images) {
-          SMAT.setMatSetting_1({ obj: child });
-        }
-      }
-    }
-  });
+  SMAT.matPop({ obj });
 
   Build.scene.add(obj);
 }
@@ -428,8 +328,6 @@ function constructionSetting(params) {
     }
   });
 
-  LOADF.offsetBoxFurnitures();
-
   Build.infProg.scene.hide.plita = plitaVisible;
 
   HIDDO.wallAfterRender_3();
@@ -462,6 +360,7 @@ function getBoundObject_1(params) {
   //scene.updateMatrixWorld();
 
   let v = [];
+  let v2 = [];
 
   for (let i = 0; i < arr.length; i++) {
     arr[i].geometry.computeBoundingBox();
@@ -479,14 +378,24 @@ function getBoundObject_1(params) {
     v[v.length] = new THREE.Vector3(bound.min.x, bound.max.y, bound.min.z).applyMatrix4(arr[i].matrixWorld);
     v[v.length] = new THREE.Vector3(bound.max.x, bound.max.y, bound.min.z).applyMatrix4(arr[i].matrixWorld);
 
-    let pos = arr[i].geometry.boundingSphere.center.clone().applyMatrix4(arr[i].matrixWorld);
-
     if (new RegExp('floor', 'i').test(arr[i].name)) {
+      let pos = arr[i].geometry.boundingSphere.center.clone().applyMatrix4(arr[i].matrixWorld);
+
       arrFloor[arrFloor.length] = { o: arr[i], name: arr[i].name, pos: pos };
+
+      v2[v2.length] = new THREE.Vector3(bound.min.x, bound.min.y, bound.max.z).applyMatrix4(arr[i].matrixWorld);
+      v2[v2.length] = new THREE.Vector3(bound.max.x, bound.min.y, bound.max.z).applyMatrix4(arr[i].matrixWorld);
+      v2[v2.length] = new THREE.Vector3(bound.min.x, bound.min.y, bound.min.z).applyMatrix4(arr[i].matrixWorld);
+      v2[v2.length] = new THREE.Vector3(bound.max.x, bound.min.y, bound.min.z).applyMatrix4(arr[i].matrixWorld);
+
+      v2[v2.length] = new THREE.Vector3(bound.min.x, bound.max.y, bound.max.z).applyMatrix4(arr[i].matrixWorld);
+      v2[v2.length] = new THREE.Vector3(bound.max.x, bound.max.y, bound.max.z).applyMatrix4(arr[i].matrixWorld);
+      v2[v2.length] = new THREE.Vector3(bound.min.x, bound.max.y, bound.min.z).applyMatrix4(arr[i].matrixWorld);
+      v2[v2.length] = new THREE.Vector3(bound.max.x, bound.max.y, bound.min.z).applyMatrix4(arr[i].matrixWorld);
     }
   }
 
-  let bound = { min: { x: 999999, y: 999999, z: 999999 }, max: { x: -999999, y: -999999, z: -999999 } };
+  let bound = { min: { x: Infinity, y: Infinity, z: Infinity }, max: { x: -Infinity, y: -Infinity, z: -Infinity } };
 
   for (let i = 0; i < v.length; i++) {
     if (v[i].x < bound.min.x) {
@@ -520,18 +429,23 @@ function getBoundObject_1(params) {
   Build.infProg.scene.boundG = bound;
   Build.infProg.scene.offset = offset;
 
+  if (1 == 1) {
+    Build.infProg.scene.boundMinFloor = bound;
+
+    for (let i = 0; i < v2.length; i++) {
+      if (v2[i].y < Build.infProg.scene.boundMinFloor.max.y) {
+        Build.infProg.scene.boundMinFloor.min.y = v2[i].y;
+      }
+    }
+  }
+
   let bx = bound.max.x - bound.min.x;
   let bz = bound.max.z - bound.min.z;
 
   Build.camera3D.userData.camera.d3.minDist = Math.max(bx / 2, bz / 2);
 
-  let camCenter = true;
-  if (camCenter) {
-    let center = new THREE.Vector3(
-      (bound.max.x - bound.min.x) / 2 + bound.min.x,
-      (bound.max.y - bound.min.y) / 2 + bound.min.y,
-      (bound.max.z - bound.min.z) / 2 + bound.min.z
-    );
+  if (Build.infProg.mode.camCenter) {
+    let center = new THREE.Vector3((bound.max.x - bound.min.x) / 2 + bound.min.x, (bound.max.y - bound.min.y) / 2 + bound.min.y, (bound.max.z - bound.min.z) / 2 + bound.min.z);
 
     Build.camera3D.position.copy(center.clone().add(offset)).add(new THREE.Vector3(0, 0.025, -1).multiplyScalar((bound.max.x - bound.min.x) * 1.1));
     Build.camera3D.lookAt(Build.camera3D.userData.camera.d3.targetO.position);
@@ -544,4 +458,118 @@ async function sleepPause(milliseconds) {
   do {
     currentDate = Date.now();
   } while (currentDate - date < milliseconds);
+}
+
+function finishLoadScene_1(params) {
+  let arrImg = [];
+  let count = 0;
+
+  Build.scene.traverse(function (child) {
+    if (child.material && child.material.userData.tag1 && child.material.userData.tag1 == 'obj') {
+      if (child.material.map && child.material.map.image) {
+        arrImg[arrImg.length] = child.material.map.image;
+      }
+
+      if (child.material.lightMap && child.material.lightMap.image) {
+        arrImg[arrImg.length] = child.material.lightMap.image;
+      }
+    }
+  });
+
+  arrImg = [...new Set(arrImg)];
+
+  for (let i = 0; i < arrImg.length; i++) {
+    arrImg[i].onload = () => {
+      nextStep();
+    };
+  }
+
+  function nextStep() {
+    count++;
+
+    if (arrImg.length == count + 1) {
+      Build.render();
+      finishLoadScene_2(params);
+    }
+  }
+}
+
+function finishLoadScene_2(params) {
+  let json = params.json;
+
+  if (Build.infProg.mode.refProbe) {
+    REFP.crReflectionProbe();
+  }
+
+  if (Build.infProg.mode.wPoint) {
+    WKP.initWalkPoint({ arr: Build.infProg.scene.floor });
+
+    WKP.ManageWP.enablePoints({ show: true });
+    CRM.visibleCursorP360({ visible: false });
+    //API.apiPIA.buttonExitCamWalkUI(false);
+  }
+
+  if (Build.infProg.mode.infoPoint) {
+    IFP.initInfoPoint();
+  }
+
+  if (Build.infProg.mode.hideO) {
+    if (json.hideObjects) {
+      HIDDO.initHiddenObject({ arr: json.hideObjects });
+      HIDDO.wallAfterRender_3();
+
+      HIDDO.initHiddenObjCeil();
+      HIDDO.showHideObjCeil();
+    }
+  }
+
+  API.apiPIA.endProgressBar();
+
+  PIV.initPivot();
+
+  if (json.paints) {
+    SLO.initSelectObj({ paints: json.paints });
+  }
+
+  //PCAM.initPathCam();
+
+  if (Build.infProg.scene.panorama.json) {
+    PANOR.initPanorama({});
+  }
+
+  if (Build.infProg.mode.dirLight) {
+    LGS.initLightShadow();
+  }
+
+  if (Build.infProg.mode.pointLight) {
+    LGS.initPointLight({ arrRoom: Build.infProg.scene.floor });
+  }
+
+  Build.camOrbit.effectP({ type: 'on' });
+
+  Build.render();
+}
+
+export function crEdge({ obj }) {
+  let paramsString = document.location.search;
+  let searchParams = new URLSearchParams(paramsString);
+  let edge = searchParams.get('edge');
+
+  if (!edge) return;
+
+  let listG = [];
+  obj.traverse(function (child) {
+    if (child.isMesh && child.geometry) {
+      listG.push({ child });
+    }
+  });
+
+  for (let i = 0; i < listG.length; i++) {
+    const lineGeom = new THREE.EdgesGeometry(listG[i].child.geometry, 50);
+
+    const thickLineGeom = new LineSegmentsGeometry().fromEdgesGeometry(lineGeom);
+    const thickLines = new LineSegments2(thickLineGeom, new LineMaterial({ color: 0x111111, linewidth: 0.0015 }));
+    listG[i].child.add(thickLines);
+    thickLines.scale.copy(listG[i].child.scale);
+  }
 }

@@ -1,221 +1,68 @@
 import './css/style.css';
-import img_lightMap_1 from './images/lightMap_1.png';
-import * as THREE from '../node_modules/three/build/three.module.js';
+
+import * as THREE from 'three';
+
+import 'regenerator-runtime/runtime';
 
 import { EffectComposer } from '../node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from '../node_modules/three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from '../node_modules/three/examples/jsm/postprocessing/ShaderPass.js';
-import { CopyShader } from '../node_modules/three/examples/jsm/shaders/CopyShader.js';
 import { FXAAShader } from '../node_modules/three/examples/jsm/shaders/FXAAShader.js';
 import { OutlinePass } from '../node_modules/three/examples/jsm/postprocessing/OutlinePass.js';
 
-import * as INTFPC from './ui/interface_pc.js';
-import * as INTFMOB from './ui/interface_mob.js';
-import * as MSV from './mouseClick.js';
-import * as MVC from './moveCamera.js';
+import * as PAR from './sceneParams';
+import * as CAM from './camera.js';
 import * as MVK from './moveCameraKey.js';
 import * as LOADS from './loaderScene.js';
-import * as SST from './stats_1.js';
 import * as CRM from './cursorMove.js';
+import * as AOBJ from './actionObj.js';
+import * as API from './api/apiPia.js';
+import * as GAPI from './api/apiPiaGlobal.js';
+import * as MSV from './mouseClick.js';
 
-export let camera2D = null;
-export let camera3D = null;
-export let renderer;
-export let container;
+export let infProg = PAR.initParams();
+export let scene, camOrbit, camera2D, camera3D, renderer, container;
+export let composer, renderPass, fxaaPass, outlinePass;
 
-export let composer;
-export let renderPass;
-export let fxaaPass;
-export let outlinePass;
+export async function init(params = { el: null, url: null, panorama: null, showUi: true, lang: null, onReady: () => {} }) {
+  let elParent = document.querySelector('#root');
 
-export let scene = null;
+  let elRoot = document.createElement('div');
+  elRoot.setAttribute('nameId', 'containerWrapper');
+  elRoot.style.cssText = 'position: relative; width: 100%; height: 100%; display: block; outline: none, overflow: hidden;';
 
-export let infProg = {};
+  API.init({ elRoot: elRoot, showUi: params.showUi, lang: params.lang, onReady: params.onReady });
+  API.apiPIA.initProgressBar();
 
-infProg.doc = {};
-infProg.doc.path = getPath();
-infProg.doc.flatPath = '';
-infProg.doc.vers = '';
-
-infProg.doc.loadFile = {};
-infProg.doc.loadFile.progress = 0;
-infProg.doc.loadFile.total = 0;
-infProg.doc.browser = detectMobileOlPC();
-infProg.doc.mobile = detectMobileDevice();
-infProg.doc.alertIphone15 = detectIPhoneVers();
-infProg.doc.language = detectBrowserLanguage();
-
-infProg.scene = {};
-infProg.scene.camera = null;
-infProg.scene.offset = new THREE.Vector3();
-infProg.scene.floor = [];
-infProg.scene.construction = null;
-infProg.scene.windows = null;
-infProg.scene.doors = null;
-infProg.scene.furnitures = [];
-infProg.scene.boxF = [];
-infProg.scene.reflectionProbe = [];
-infProg.scene.panorama = null;
-infProg.scene.cursorP360 = null;
-infProg.scene.pathCam = null;
-
-infProg.scene.paints = [];
-infProg.scene.catalogAccessKeys = null;
-
-infProg.scene.hide = {};
-infProg.scene.hide.wall = [];
-infProg.scene.hide.plita = [];
-infProg.scene.hide.ceil = [];
-
-infProg.mouse = {};
-infProg.mouse.event = null;
-infProg.mouse.click = {};
-infProg.mouse.click.down = false;
-infProg.mouse.click.move = false;
-infProg.mouse.click.type = '';
-
-infProg.mouse.pos = new THREE.Vector2();
-infProg.mouse.th = {};
-infProg.mouse.th.pos = [];
-infProg.mouse.th.pos[0] = {};
-infProg.mouse.th.pos[1] = {};
-infProg.mouse.th.pos[1].x = new THREE.Vector2();
-infProg.mouse.th.pos[1].y = new THREE.Vector2();
-infProg.mouse.th.ratio1 = new THREE.Vector2();
-infProg.mouse.th.camDist = new THREE.Vector3();
-
-infProg.planeMath = null;
-
-infProg.stats = {};
-infProg.stats.fps = null;
-infProg.stats.drcall = null;
-infProg.stats.triang = null;
-infProg.stats.memory_g = null;
-infProg.stats.memory_m = null;
-infProg.stats.time = {};
-infProg.stats.time.update = true;
-infProg.stats.time.el = null;
-infProg.stats.time.number = new Date().getTime();
-
-infProg.mode = {};
-infProg.mode.matFloor = true;
-infProg.mode.refProbe = true;
-infProg.mode.iPoint = true;
-infProg.mode.upMat = true;
-infProg.mode.stImg = true;
-infProg.mode.hideO = true;
-infProg.mode.lightMap = '';
-infProg.mode.vProbe = null;
-
-infProg.img = {};
-infProg.img.lightMap_1 = new THREE.TextureLoader().load(img_lightMap_1);
-infProg.img.lightMap_1.encoding = THREE.sRGBEncoding;
-infProg.img.floor = [];
-infProg.img.list = [];
-
-infProg.elem = {};
-infProg.elem.butt = {};
-infProg.elem.butt.cam2D = null;
-infProg.elem.butt.cam3D = null;
-infProg.elem.butt.camFirst = null;
-infProg.elem.progressBar = null;
-infProg.elem.qrId = null;
-
-infProg.elem.mapSize = [];
-infProg.elem.lightMapSize = [];
-
-function getPath() {
-  let path = '';
-
-  if (document.currentScript) {
-    let src = document.currentScript.src;
-    let arr = src.split('/');
-    let fname = arr[arr.length - 1];
-
-    path = src.replace(fname, '');
-  }
-
-  //console.log(document.currentScript, path);
-
-  return path;
-}
-
-function onWindowResize() {
-  let aspect = container.clientWidth / container.clientHeight;
-  let d = 5;
-
-  camera2D.left = -d * aspect;
-  camera2D.right = d * aspect;
-  camera2D.top = d;
-  camera2D.bottom = -d;
-  camera2D.updateProjectionMatrix();
-
-  camera3D.aspect = aspect;
-  camera3D.updateProjectionMatrix();
-
-  renderer.setSize(container.clientWidth, container.clientHeight);
-
-  renderer.domElement.style.width = '100%';
-  renderer.domElement.style.height = '100%';
-
-  render();
-}
-
-export function render() {
-  //
-  if (composer) {
-    composer.render();
-  } else {
-    renderer.render(scene, infProg.scene.camera);
-  }
-
-  if (infProg.stats.fps) infProg.stats.fps.update();
-  //if(infProg.stats.drcall) SST.showStats_2({up: true});
-  //if(infProg.stats.triang) SST.showStats_3({up: true});
-  //if(infProg.stats.memory_g) SST.showStats_4({up: true});
-  //if(infProg.stats.memory_m) SST.showStats_5({up: true});
-  //if(infProg.stats.time.el) SST.showStats_6({up: true});
-}
-
-export async function init(params = {}) {
-  if (infProg.doc.mobile) {
-    INTFMOB.initMainUI(params);
-  } else {
-    INTFPC.initMainUI(params);
-  }
-
-  infProg.elem.progressBar = document.querySelector('[nameId="progressBar"]');
+  let elem = document.createElement('div');
+  elem.setAttribute('nameId', 'containerScene');
+  elem.style.cssText = 'width: 100%; height: 100%; touch-action: none; user-select: none;';
+  elRoot.appendChild(elem);
+  elParent.appendChild(elRoot);
 
   container = document.querySelector('[nameId="containerScene"]');
+
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0xffffff);
 
-  renderer = new THREE.WebGLRenderer({ antialias: false, logarithmicDepthBuffer: true, alpha: true });
+  renderer = new THREE.WebGLRenderer({ logarithmicDepthBuffer: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(container.clientWidth, container.clientHeight);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.CustomToneMapping;
   //renderer.toneMappingExposure = 1;
-
   container.appendChild(renderer.domElement);
+  container.addEventListener('contextmenu', (event) => event.preventDefault());
 
-  renderer.domElement.style.width = '100%';
-  renderer.domElement.style.height = '100%';
-  renderer.domElement.style.outline = 'none';
+  camOrbit = new CAM.CameraOrbit({ container: container, renderer: renderer, scene: scene, setCam: '3D' });
+  camera2D = camOrbit.cam2D;
+  camera3D = camOrbit.cam3D;
 
-  MSV.initCamera();
+  infProg.cl.ListClick = new MSV.ListOrder({ container: container });
   MVK.initCameraKey();
-  camera2D = MSV.camera2D;
-  camera3D = MSV.camera3D;
-  infProg.scene.camera = camera3D;
-
-  window.addEventListener('resize', onWindowResize, false);
-  container.addEventListener('contextmenu', function (event) {
-    event.preventDefault();
-  });
-
   LOADS.loadScene_1(params);
   CRM.initCursorMove();
+  AOBJ.init();
 
   let paramsString = document.location.search;
   let searchParams = new URLSearchParams(paramsString);
@@ -263,6 +110,13 @@ THREE.ShaderChunk.tonemapping_pars_fragment = THREE.ShaderChunk.tonemapping_pars
 	}`
 );
 
+export function render() {
+  if (composer) composer.render();
+  else renderer.render(scene, camOrbit.activeCam);
+
+  if (infProg.stats.fps) infProg.stats.fps.update();
+}
+
 export function urlHttps(params) {
   let url = params.url;
 
@@ -277,56 +131,6 @@ export function urlHttps(params) {
 
 export function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
-function detectMobileOlPC() {
-  let type = '';
-
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-    type = 'mobile';
-  } else {
-    type = 'pc';
-  }
-
-  return type;
-}
-
-function detectMobileDevice() {
-  let mobile = false;
-
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    mobile = true;
-  }
-  console.log('MD', mobile);
-  return mobile;
-}
-
-function detectIPhoneVers() {
-  let alert = false;
-
-  if (/iPhone/i.test(navigator.userAgent)) {
-    let found = navigator.userAgent.match(/Version\/([0-9]{1,3})/i);
-
-    if (found) {
-      if (found[1]) {
-        if (Number(found[1]) < 15) {
-          alert = true;
-        }
-      }
-    }
-  }
-  console.log('alert iPh15', alert);
-  return alert;
-}
-
-function detectBrowserLanguage() {
-  let language = 'en';
-
-  if (/ru/i.test(navigator.language)) {
-    language = 'ru';
-  }
-  console.log('lang', language);
-  return language;
 }
 
 //document.addEventListener("DOMContentLoaded", init);

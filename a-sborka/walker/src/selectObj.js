@@ -1,15 +1,26 @@
-import img_hidelot from './images/hidelot.png';
+import * as Build from './walker';
+import * as SCAT from './structureCatalog';
+import * as UPPOBJ from './upPaintObj';
+import * as QRK from './qr';
+//import * as API from './api/apiPia';
+import * as IFP from './infoPoint.js';
+import * as LOADF from './loaderFurnitures.js';
 
-import * as THREE from '../node_modules/three/build/three.module.js';
-import * as Build from './walker.js';
 import * as CATPC from './ui/catalog_pc.js';
 import * as CATMOB from './ui/catalog_mob.js';
-import * as QRK from './qr.js';
 
-let infLots = [];
+export let infLots = [];
 
 export function initSelectObj(params) {
-  if (!Build.infProg.scene.catalogAccessKeys) return;
+  let start = true;
+  if (!Build.infProg.scene.catalogAccessKeys) start = false;
+  if (params.paints.length == 0) start = false;
+
+  if (!start) {
+    //API.apiPIA.showUi = false;
+    //API.apiPIA.initInterface();
+    return;
+  }
 
   let paints = params.paints;
   Build.infProg.scene.paints = paints;
@@ -36,104 +47,35 @@ export function initSelectObj(params) {
     strId += '&id[' + i + ']=' + arrId[i];
   }
 
-  //let host = 'https://catalog.planoplan.com/api/v2.1/search/?lang=ru&disregard_price=1&disregard_structure=1&disregard_ownership=1';
-  //let url = host + '&' + Build.infProg.scene.catalogAccessKeys + '&' + strId;
-  let url = './file/catalog.json';
+  //let url = Build.infProg.doc.host + '&' + Build.infProg.scene.catalogAccessKeys + '&' + strId;
+  let url = Build.infProg.doc.host;
 
   let p = xhrPromise_1({ url: url });
   p.then((data) => {
-    infLots = [...new Set(data.items)];
+    let arr = [...data.items, ...data.children_items];
+    infLots = [...new Set(arr)];
+    upAddHttps(infLots);
+
     QRK.checkUrlQR();
-    structureCatalog();
+    let arr2 = SCAT.structureCatalog();
     QRK.setUrlQR();
+
     getObjFromPaints();
+
+    //API.apiPIA.initInterface();
+    //API.apiPIA.initCatalog(arr2);
+
+    CATPC.initCatalogUI({ arr: arr2 });
+
     // getPreviewImg({arr: infLots});
   }).catch((err) => {
     console.log('err', err);
   });
 
-  function structureCatalog() {
-    let arr = [];
-
-    for (let i = 0; i < paints.length; i++) {
-      if (!paints[i].paint) continue;
-      if (!Array.isArray(paints[i].paint)) continue;
-      if (paints[i].paint.length == 0) continue;
-
-      if (!paints[i].paint[0].lots) continue;
-      if (!Array.isArray(paints[i].paint[0].lots)) continue;
-      if (paints[i].paint[0].lots.length == 0) continue;
-
-      if (paints[i].activeId > -1) {
-        for (let i2 = 0; i2 < paints[i].paint.length; i2++) {
-          if (paints[i].activeId + 1 > paints[i].paint[i2].lots.length) continue;
-
-          paints[i].paint[i2].setupedLot = paints[i].paint[i2].lots[paints[i].activeId];
-        }
-      }
-
-      let n = arr.length;
-
-      arr[n] = {};
-      arr[n].id = i;
-      arr[n].caption = paints[i].caption;
-      arr[n].preview = null;
-      arr[n].color = null;
-      arr[n].setIcon = null;
-      arr[n].items = [];
-
-      //let apiLot = infLots.find(o => o.id == paints[i].paint[0].lots[0]);
-      let o = infLots.find((o) => o.id == paints[i].paint[0].setupedLot);
-
-      if (o) {
-        if (o.preview && o.preview !== '') arr[n].preview = o.preview;
-        if (o.color && o.color !== '') arr[n].color = o.color;
-      }
-
-      paints[i].activeId = paints[i].paint[0].lots.findIndex((id) => id == paints[i].paint[0].setupedLot);
-
-      let arr2 = [];
-      let paintsCaptions = paints[i].paintsCaptions;
-
-      if (paintsCaptions) {
-        if (paints[i].activeId > -1) setIcon({ arr: arr, n: n, paints: paints, i: i, ind: paints[i].activeId });
-
-        for (let i2 = 0; i2 < paintsCaptions.length; i2++) {
-          let n = arr2.length;
-
-          arr2[n] = {};
-          arr2[n].id = i2;
-          arr2[n].caption = paintsCaptions[i2].ru;
-          arr2[n].preview = null;
-          arr2[n].color = null;
-
-          setIcon({ arr: arr2, n: n, paints: paints, i: i, ind: i2 });
-        }
-      } else {
-        let lots = paints[i].paint[0].lots;
-
-        for (let i2 = 0; i2 < lots.length; i2++) {
-          let o = infLots.find((o) => o.id == lots[i2]);
-          if (!o) continue;
-
-          let n = arr2.length;
-
-          arr2[n] = {};
-          arr2[n].id = i2;
-          arr2[n].caption = o.shortName.length > 0 ? o.shortName : o.caption;
-          arr2[n].preview = o.preview && o.preview !== '' ? o.preview : null;
-          arr2[n].color = o.color && o.color !== '' ? o.color : null;
-        }
-      }
-      arr[n].items = arr2;
-    }
-
-    setPrevDefault({ arr: arr });
-
-    if (Build.infProg.doc.mobile) {
-      CATMOB.initCatalogUI({ arr: arr });
-    } else {
-      CATPC.initCatalogUI({ arr: arr });
+  function upAddHttps(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].preview && arr[i].preview !== '') arr[i].preview = Build.urlHttps({ url: arr[i].preview });
+      if (arr[i].sourceImageURL && arr[i].sourceImageURL !== '') arr[i].sourceImageURL = Build.urlHttps({ url: arr[i].sourceImageURL });
     }
   }
 
@@ -154,10 +96,10 @@ export function initSelectObj(params) {
           for (let i3 = 0; i3 < paints[i].paint[i2].objScene.length; i3++) {
             if (!paints[i].paint[i2].objScene[i3]) continue;
 
-            setTexture({ obj: paints[i].paint[i2].objScene[i3], lotId: paints[i].paint[i2].setupedLot });
+            UPPOBJ.upTextureObj({ obj: paints[i].paint[i2].objScene[i3], lotId: paints[i].paint[i2].setupedLot });
           }
         } else if (paints[i].paint[i2].container) {
-          loadObjApi({ paint: paints[i].paint[i2], lotId: paints[i].paint[i2].setupedLot });
+          LOADF.loadObjPop({ paint: paints[i].paint[i2], lotId: paints[i].paint[i2].setupedLot });
         }
       }
     }
@@ -169,46 +111,6 @@ export function initSelectObj(params) {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].preview) xhrImg_1({ json: arr[i], url: arr[i].preview });
     }
-  }
-}
-
-function setIcon(params) {
-  let arr = params.arr;
-  let n = params.n;
-  let paints = params.paints;
-  let i = params.i;
-  let ind = params.ind;
-
-  //arr[n].color = null;
-  //arr[n].preview = null;
-  arr[n].setIcon = null;
-
-  let setIcon = [];
-  let paint = paints[i].paint;
-
-  for (let i2 = 0; i2 < paint.length; i2++) {
-    let n2 = setIcon.length;
-
-    if (n2 > 3) break;
-
-    let o = infLots.find((o) => o.id == paints[i].paint[i2].lots[ind]);
-
-    let exist = setIcon.find((o2) => o2.lotId == o.id);
-
-    if (exist) continue;
-    if (!o) continue;
-
-    setIcon[n2] = {};
-    setIcon[n2].lotId = o.id;
-    setIcon[n2].preview = o.preview && o.preview !== '' ? o.preview : null;
-    setIcon[n2].color = o.color && o.color !== '' ? o.color : null;
-  }
-
-  if (setIcon.length > 1) {
-    arr[n].setIcon = setIcon;
-  } else if (setIcon.length == 1 && setIcon[0].preview) {
-    arr[n].preview = setIcon[0].preview;
-    arr[n].color = setIcon[0].color;
   }
 }
 
@@ -226,23 +128,6 @@ function getObjs(params) {
   });
 
   return arr;
-}
-
-function setPrevDefault(params) {
-  let arr = params.arr;
-
-  for (let i = 0; i < arr.length; i++) {
-    if (!arr[i].preview && !arr[i].color && !arr[i].setIcon) arr[i].preview = img_hidelot;
-
-    for (let i2 = 0; i2 < arr[i].items.length; i2++) {
-      let arr2 = arr[i].items[i2];
-
-      if (!arr2.preview && !arr2.color && !arr2.setIcon) {
-        arr2.preview = img_hidelot;
-        arr2.color = 'FFFFFF';
-      }
-    }
-  }
 }
 
 function xhrPromise_1(params) {
@@ -301,8 +186,6 @@ export function checkActObj(params) {
 
     arrO.push(...paint[i].objScene);
   }
-
-  outlineAddObj({ arr: arrO });
 }
 
 export function changeLots(params) {
@@ -317,7 +200,7 @@ export function changeLots(params) {
       for (let i2 = 0; i2 < paint[i].objScene.length; i2++) {
         if (!paint[i].objScene[i2]) continue;
 
-        setTexture({ obj: paint[i].objScene[i2], lotId: paint[i].lots[lotId] });
+        UPPOBJ.upTextureObj({ obj: paint[i].objScene[i2], lotId: paint[i].lots[lotId] });
       }
     } else if (paint[i].container) {
       for (let i2 = paint[i].objScene.length - 1; i2 >= 0; i2--) {
@@ -325,163 +208,89 @@ export function changeLots(params) {
 
         let obj = paint[i].objScene[i2];
         paint[i].objScene[i2] = null;
+
+        obj.objOutline(false);
+        obj.objHidePivot();
+        if (obj.userData.infoPoint) obj.userData.infoPoint.delete();
+
         disposeNode(obj);
         Build.scene.remove(obj);
+        deleteValueFromArrya({ arr: Build.infProg.scene.furnitures, o: obj });
+        Build.render();
       }
 
       if (paint[i].container) {
-        loadObjApi({ paint: paint[i], lotId: paint[i].lots[lotId], selectAct: true });
+        LOADF.loadObjPop({ paint: paint[i], lotId: paint[i].lots[lotId] });
       }
     }
   }
 
   paints[paintsId].activeId = lotId;
+  for (let i2 = 0; i2 < paints[paintsId].paint.length; i2++) {
+    paints[paintsId].paint[i2].setupedLot = paints[paintsId].paint[i2].lots[paints[paintsId].activeId];
+  }
+
   QRK.setUrlQR();
 }
 
-function setTexture(params) {
-  let obj = params.obj;
-  let lotId = params.lotId;
+export function getEstimate() {
+  let paints = Build.infProg.scene.paints;
 
-  let color = null;
-  let src = null;
+  let arr = [];
 
-  for (let i = 0; i < infLots.length; i++) {
-    if (infLots[i].id == lotId) {
-      if (infLots[i].color) color = Build.urlHttps({ url: infLots[i].color });
-      if (infLots[i].sourceImageURL) src = Build.urlHttps({ url: infLots[i].sourceImageURL });
+  for (let i = 0; i < paints.length; i++) {
+    if (paints[i].activeId == -1) continue;
+
+    let n = arr.length;
+
+    arr[n] = {};
+    arr[n].id = n;
+    arr[n].caption = paints[i].caption;
+
+    arr[n].value = {};
+    arr[n].value.id = paints[i].activeId;
+    arr[n].value.caption = paints[i].captions[paints[i].activeId];
+  }
+
+  return arr;
+}
+
+function deleteValueFromArrya(params) {
+  var arr = params.arr;
+  var o = params.o;
+
+  for (var i = arr.length - 1; i > -1; i--) {
+    if (arr[i] == o) {
+      arr.splice(i, 1);
       break;
     }
   }
-
-  if (color) {
-    if (obj.material.map) {
-      obj.material.map.dispose();
-      obj.material.map = null;
-    }
-
-    obj.material.color = new THREE.Color('#' + color);
-    obj.material.needsUpdate = true;
-    Build.render();
-  }
-
-  if (src) {
-    new THREE.TextureLoader().load(src, function (texture) {
-      if (obj.material.map) {
-        obj.material.map.dispose();
-        obj.material.map = null;
-      }
-
-      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-      obj.material.map = texture;
-      obj.material.map.encoding = THREE.sRGBEncoding;
-      obj.material.map.needsUpdate = true;
-      obj.material.needsUpdate = true;
-      Build.render();
-    });
-  }
 }
 
-function loadObjApi(params) {
-  let paint = params.paint;
-  let lotId = params.lotId;
-  let selectAct = params.selectAct;
+function disposeNode(obj) {
+  let arr = [];
+  obj.traverse((child) => arr.push(child));
+  arr.forEach((o) => clearMemory(o));
 
-  let url = null;
-  let sizeDef = new THREE.Vector3();
+  function clearMemory(node) {
+    if (!node.geometry) return;
 
-  for (let i = 0; i < infLots.length; i++) {
-    if (infLots[i].id == lotId) {
-      let arrSize = infLots[i].size.split(',');
-      sizeDef = new THREE.Vector3(arrSize[0], arrSize[1], arrSize[2]);
-      url = infLots[i].fileJson;
-      break;
-    }
-  }
-
-  if (!url) {
-    Build.render();
-    return;
-  }
-
-  if (!paint.container) return;
-
-  let size = paint.container.size;
-  let scale = new THREE.Vector3(size.x / sizeDef.x, size.y / sizeDef.y, size.z / sizeDef.z);
-
-  let geometry = new THREE.BoxGeometry(size.x, size.y, size.z);
-  let material = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.5 });
-  let box = new THREE.Mesh(geometry, material);
-
-  let pos = new THREE.Vector3(paint.container.center.x, paint.container.center.y, paint.container.center.z);
-  let lookV = new THREE.Vector3(paint.container.forward.x, paint.container.forward.y, paint.container.forward.z);
-
-  box.lookAt(lookV);
-  box.position.copy(Build.infProg.scene.offset);
-  box.position.add(pos);
-  Build.scene.add(box);
-  Build.render();
-
-  new THREE.ObjectLoader().load(
-    url,
-
-    function (obj) {
-      disposeNode(box);
-      Build.scene.remove(box);
-
-      obj.lookAt(lookV);
-      obj.position.copy(Build.infProg.scene.offset);
-      obj.position.add(pos);
-      obj.position.y -= size.y / 2;
-      obj.scale.copy(scale);
-      Build.scene.add(obj);
-
-      paint.objScene = [obj];
-
-      obj.userData.pop = {};
-      obj.userData.pop.lotId = lotId;
-
-      if (selectAct) {
-        outlineAddObj({ arr: [obj] });
-      }
-
-      Build.render();
-    }
-  );
-}
-
-export function outlineAddObj(params) {
-  return;
-  Build.outlinePass.selectedObjects = params.arr;
-
-  Build.render();
-}
-
-// очищаем объект из памяти
-function disposeNode(node) {
-  if (node.geometry) {
     node.geometry.dispose();
-  }
 
-  if (node.material) {
-    var materialArray = [];
+    if (node.material) {
+      let materialArray = node.material instanceof Array ? node.material : [node.material];
 
-    if (node.material instanceof Array) {
-      materialArray = node.material;
-    } else {
-      materialArray = [node.material];
+      materialArray.forEach(function (mtrl, idx) {
+        if (mtrl.map) mtrl.map.dispose();
+        if (mtrl.lightMap) mtrl.lightMap.dispose();
+        if (mtrl.bumpMap) mtrl.bumpMap.dispose();
+        if (mtrl.normalMap) mtrl.normalMap.dispose();
+        if (mtrl.specularMap) mtrl.specularMap.dispose();
+        if (mtrl.envMap) mtrl.envMap.dispose();
+        mtrl.dispose();
+      });
     }
 
-    materialArray.forEach(function (mtrl, idx) {
-      if (mtrl.map) mtrl.map.dispose();
-      if (mtrl.lightMap) mtrl.lightMap.dispose();
-      if (mtrl.bumpMap) mtrl.bumpMap.dispose();
-      if (mtrl.normalMap) mtrl.normalMap.dispose();
-      if (mtrl.specularMap) mtrl.specularMap.dispose();
-      if (mtrl.envMap) mtrl.envMap.dispose();
-      mtrl.dispose();
-    });
+    Build.renderer.renderLists.dispose();
   }
-
-  Build.renderer.renderLists.dispose();
 }

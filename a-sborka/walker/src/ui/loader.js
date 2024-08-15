@@ -1,4 +1,13 @@
 import * as LSVG from './list_svg.js';
+import * as API from '../api/apiPia.js';
+
+export function initLoader() {
+  let elem = document.createElement('div');
+  elem.innerHTML = getHtml();
+
+  let elRoot = API.apiPIA.getElRoot();
+  elRoot.appendChild(elem);
+}
 
 export function getHtml() {
   let html = `<div nameId="loader" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: #fff; z-index: 3; display: block;">
